@@ -3,10 +3,12 @@
     const textAlias = document.getElementById('inner')
     const hauteurDuTexte = textAlias.offsetHeight
     const fontSize = window.getComputedStyle(textAlias).fontSize
-    const lineHeigth = parseInt(fontSize.replace('px',''),10) * 1.1
+    const lineHeigth = parseInt(fontSize.replace('px',''),10) * 1.12
+    // textAlias.style.lineHeight = '16px'
     const nombreDeLignes = hauteurDuTexte / lineHeigth
+    console.log(textAlias.style)
 
-    // array of words
+    // array of wor4s
 
 
 
@@ -16,6 +18,7 @@ fonction_question1 = ( text ) => {
     const regex= /^[^a-zA-Z0-9]*$/
     const TextArray = text.split('\n')
     const nombreLignesInvalides = TextArray.filter(word => word.match(regex)).length
+  console.log(TextArray.filter(word => word.match(regex)))
 
     return Math.floor(nombreDeLignes - nombreLignesInvalides)
 }
@@ -47,16 +50,17 @@ fonction_question4 = (text) => {
         //tableau des mots
         const regex= /^[a-zA-Z0-9éèàê]+$/
         const textArray = text.split(/-|\s|'|\w+\.\w+/)
-        const tableauDeMots = textArray.filter(word=> word.match(regex))
+        const tableauDeMots =[...new Set(textArray.filter(word=> word.match(regex)))] 
 
-        // tri des mots par ordre alphabétique
         const motsTri = tableauDeMots.sort((a,b) => a.length - b.length)
+        
+
         const motsTriRetourLigne = [...[motsTri[0], ", "]]
 
         for (i=1 ; i< motsTri.length-1; i++) {
             motsTri[i+1].length > motsTri[i].length ? motsTriRetourLigne.push(...[motsTri[i],', ', '<br/>']) : motsTriRetourLigne.push (...[motsTri[i]],', ')
         }
-
+        
         return motsTriRetourLigne.join('').slice(0,-2)
 
 }
